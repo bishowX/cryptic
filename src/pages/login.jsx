@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import Router from "next/router";
 import { Redirect } from "next";
+import WithoutAuth from "@/components/WithoutAuth";
 
-const login = () => {
+const Login = () => {
   const { error, login, user } = useAuth();
 
   const [formValues, setFormValues] = useState({
@@ -22,10 +23,6 @@ const login = () => {
     newFormValues[event.target.name] = event.target.value;
     setFormValues(newFormValues);
   };
-
-  if (user) {
-    Router.push("/");
-  }
 
   return (
     <div>
@@ -45,4 +42,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default WithoutAuth(Login);

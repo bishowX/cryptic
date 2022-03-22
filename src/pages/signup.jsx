@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
-import Router from "next/router";
+import withoutAuth from "./../components/WithoutAuth";
 
 const Signup = () => {
   const { user, error, signUp } = useAuth();
@@ -22,10 +22,6 @@ const Signup = () => {
     setFormValues(newFormValues);
   };
 
-  if (user) {
-    Router.push("/");
-  }
-
   return (
     <div>
       <h1>Signup</h1>
@@ -44,4 +40,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default withoutAuth(Signup);
