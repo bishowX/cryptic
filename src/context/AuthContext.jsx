@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { firebaseAuth } from "../lib/firebase";
+import { login, logout, signUp } from "actions/authActions";
 
 export const AuthContext = createContext({
   user: null,
@@ -30,25 +31,13 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const signUp = async (email, password) => {
-    try {
-      const { user } = await createUserWithEmailAndPassword(firebaseAuth, email, password);
-    } catch (error) {
-      setError(error.message);
-    }
+  const value = {
+    user,
+    loading,
+    error,
+    signUp,
+    logout,
   };
 
-  const login = async (email, password) => {
-    try {
-      const { user } = await signInWithEmailAndPassword(firebaseAuth, email, password);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const logout = async () => {
-    await signOut(firebaseAuth);
-  };
-
-  return <AuthContext.Provider value={{ user, loading, error, login, signUp, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

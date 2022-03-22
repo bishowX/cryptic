@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import Router from "next/router";
-import { Redirect } from "next";
 import withoutAuth from "@/components/withoutAuth";
 
 const Login = () => {
