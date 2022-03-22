@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import Router from "next/router";
 import { Redirect } from "next";
-import WithoutAuth from "@/components/WithoutAuth";
+import withoutAuth from "@/components/withoutAuth";
 
 const Login = () => {
   const { error, login, user } = useAuth();
@@ -42,4 +42,4 @@ const Login = () => {
   );
 };
 
-export default WithoutAuth(Login);
+export default withoutAuth(Login);

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
-import withoutAuth from "./../components/WithoutAuth";
+import withoutAuth from "../components/withoutAuth";
 
 const Signup = () => {
   const { user, error, signUp } = useAuth();
