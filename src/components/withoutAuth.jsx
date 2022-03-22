@@ -6,7 +6,9 @@ const withoutAuth = (WrappedComponent) => {
     if (typeof window !== "undefined") {
       const Router = useRouter();
 
-      const { user, loading } = useAuth();
+      const {
+        state: { user, loading },
+      } = useAuth();
 
       if (loading) return null;
       if (user) {

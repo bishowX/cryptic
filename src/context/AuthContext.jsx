@@ -1,7 +1,10 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../lib/firebase";
-import { login, logout, signUp } from "actions/authActions";
+import { logout, signUp, login } from "actions/authActions";
+import initialAuthState from "initialState/initialAuthState";
+import authReducer from "reducers/authReducer";
+import { LOAD_USER_LOADING, LOAD_USER_SUCCESS, USER_NOT_LOGGED_IN } from "actionTypes";
 
 export const AuthContext = createContext({
   user: null,
@@ -11,20 +14,15 @@ export const AuthContext = createContext({
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [state, dispatch] = useReducer(authReducer, initialAuthState);
 
   useEffect(() => {
-    setLoading(true);
+    dispatch({ type: LOAD_USER_LOADING });
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       if (!user) {
-        setUser(null);
-        setLoading(false);
+        dispatch({ type: USER_NOT_LOGGED_IN });
       } else {
-        setUser(user);
-        setError(null);
-        setLoading(false);
+        dispatch({ type: LOAD_USER_SUCCESS, payload: user });
       }
     });
 
@@ -32,11 +30,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const value = {
-    user,
-    loading,
-    error,
+    state,
+    dispatch,
     signUp,
     logout,
+    login,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

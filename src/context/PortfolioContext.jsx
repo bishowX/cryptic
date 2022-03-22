@@ -1,4 +1,4 @@
-import { initialPortfolioState } from "initialState";
+import { initialPortfolioState } from "initialState/initialPortfolioState";
 import { createContext, useContext, useReducer } from "react";
 import { portfolioReducer } from "reducers/portfolioReducer";
 import { getPortfolio } from "actions/portfolioActions";

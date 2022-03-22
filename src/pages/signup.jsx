@@ -4,7 +4,11 @@ import { useState } from "react";
 import withoutAuth from "../components/withoutAuth";
 
 const Signup = () => {
-  const { user, error, signUp } = useAuth();
+  const {
+    state: { error },
+    signUp,
+    dispatch,
+  } = useAuth();
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -13,7 +17,7 @@ const Signup = () => {
 
   const handleSignup = async (event) => {
     event.preventDefault();
-    signUp(formValues.email, formValues.password);
+    signUp(dispatch, formValues.email, formValues.password);
   };
 
   const handleFormValueChange = (event) => {

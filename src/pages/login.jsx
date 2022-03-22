@@ -4,7 +4,11 @@ import { useAuth } from "../context/AuthContext";
 import withoutAuth from "@/components/withoutAuth";
 
 const Login = () => {
-  const { error, login, user } = useAuth();
+  const {
+    state: { user, error },
+    login,
+    dispatch,
+  } = useAuth();
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -13,7 +17,7 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    login(formValues.email, formValues.password);
+    login(dispatch, formValues.email, formValues.password);
   };
 
   const handleFormValueChange = (event) => {
