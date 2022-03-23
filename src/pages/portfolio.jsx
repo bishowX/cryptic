@@ -15,12 +15,9 @@ const Portfolio = () => {
     state: { user, loading: userLoading },
   } = useAuth();
 
-  console.log("user ", user, "userloading ", userLoading);
   useEffect(() => {
     if (!userLoading) getPortfolio(dispatch, user.uid);
   }, [userLoading]);
-
-  console.log(data);
 
   return (
     <div>
