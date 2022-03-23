@@ -19,10 +19,10 @@ const CoinDetail = () => {
 
   return (
     <div>
-      Detail of {coinId}
+      <h1> Detail of {coinId}</h1>
       {coin.error && <h3>Error: {coin.error}</h3>}
       {coin.loading && <h3>loading...</h3>}
-      {coin.data?.asset_id && <pre>{JSON.stringify(coin.data)}</pre>}
+      {coin.data?.asset_id && <h2>{JSON.stringify(coin.data)}</h2>}
     </div>
   );
 };
