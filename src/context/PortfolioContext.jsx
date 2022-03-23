@@ -7,7 +7,7 @@ const PortfolioContext = createContext();
 
 export const usePortfolio = () => useContext(PortfolioContext);
 
-const PortfolioProvider = ({ children }) => {
+export const PortfolioProvider = ({ children }) => {
   const [state, dispatch] = useReducer(portfolioReducer, initialPortfolioState);
 
   const value = {
@@ -18,5 +18,3 @@ const PortfolioProvider = ({ children }) => {
 
   return <PortfolioContext.Provider value={value}>{children}</PortfolioContext.Provider>;
 };
-
-export default PortfolioProvider;

@@ -1,5 +1,6 @@
 import { usePortfolio } from "context/PortfolioContext";
 import { useEffect } from "react";
+import { useAuth } from "context/AuthContext";
 
 const Portfolio = () => {
   const {
@@ -10,16 +11,21 @@ const Portfolio = () => {
     getPortfolio,
   } = usePortfolio();
 
+  const {
+    state: { user, loading: userLoading },
+  } = useAuth();
+
+  console.log("user ", user, "userloading ", userLoading);
   useEffect(() => {
-    getPortfolio(dispatch);
-  }, []);
+    if (!userLoading) getPortfolio(dispatch, user.uid);
+  }, [userLoading]);
 
   console.log(data);
 
   return (
     <div>
       <h1>Portfolio</h1>
-      <h1>Your investment in coin</h1>
+      <h2>Your investment in coin</h2>
       {loading ? (
         <h3>Loading</h3>
       ) : (
@@ -30,6 +36,7 @@ const Portfolio = () => {
           </div>
         ))
       )}
+      <h3>Total: {data?.totalAmount}</h3>
     </div>
   );
 };

@@ -1,12 +1,17 @@
 import { AuthProvider } from "../context/AuthContext";
+import { PortfolioProvider } from "context/PortfolioContext";
+import { CoinProvider } from "context/CoinContext";
+import Navbar from "./../components/Navbar";
 import "../styles/globals.css";
-import PortfolioProvider from "context/PortfolioContext";
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <PortfolioProvider>
-        <Component {...pageProps} />
+        <Navbar />
+        <CoinProvider>
+          <Component {...pageProps} />
+        </CoinProvider>
       </PortfolioProvider>
     </AuthProvider>
   );
