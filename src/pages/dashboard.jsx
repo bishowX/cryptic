@@ -1,7 +1,8 @@
-import withAuth from "@/components/withAuth";
+import { useEffect } from "react";
+import withAuth from "components/withAuth";
 import { getPortfolio } from "actions/portfolioActions";
 import { usePortfolio } from "context/PortfolioContext";
-import { useEffect } from "react";
+import { useAuth } from "context/AuthContext";
 
 const Dashboard = () => {
   const {
@@ -10,6 +11,10 @@ const Dashboard = () => {
     },
     dispatch,
   } = usePortfolio();
+
+  const {
+    state: { user },
+  } = useAuth();
 
   useEffect(() => {
     getPortfolio(dispatch, user.uid);

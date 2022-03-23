@@ -1,7 +1,7 @@
 import { initialPortfolioState } from "initialState/initialPortfolioState";
 import { createContext, useContext, useReducer } from "react";
 import { portfolioReducer } from "reducers/portfolioReducer";
-import { getPortfolio } from "actions/portfolioActions";
+import { getPortfolio, addCoinToPortfolio } from "actions/portfolioActions";
 
 const PortfolioContext = createContext();
 
@@ -14,6 +14,7 @@ export const PortfolioProvider = ({ children }) => {
     state,
     dispatch,
     getPortfolio,
+    addCoinToPortfolio,
   };
 
   return <PortfolioContext.Provider value={value}>{children}</PortfolioContext.Provider>;
