@@ -54,7 +54,7 @@ export const addCoinToPortfolio = async (dispatch, uid, coinId, quantity) => {
       await addDoc(collection(firestore, `${uid}/portfolio/coins`), { symbol: coinId, quantity, boughtPrice: coinPrice });
     }
 
-    dispatch({ type: ADD_COIN_TO_PORTFOLIO_SUCCESS, payload: { symbol: coinId, quantity } });
+    dispatch({ type: ADD_COIN_TO_PORTFOLIO_SUCCESS, payload: { symbol: coinId, quantity, boughtPrice: coinPrice } });
   } catch (error) {
     dispatch({ type: ADD_COIN_TO_PORTFOLIO_ERROR, payload: error.message });
   }
