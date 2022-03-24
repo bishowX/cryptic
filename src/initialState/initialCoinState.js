@@ -1,12 +1,12 @@
 const initialCoinState = {
   coins: {
-    loading: true,
+    loading: false,
     error: null,
     data: [],
   },
 
   coin: {
-    loading: true,
+    loading: false,
     error: null,
     data: null,
   },
