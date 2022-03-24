@@ -33,6 +33,7 @@ const Portfolio = () => {
               <th>Symbol</th>
               <th>Quantity</th>
               <th>Bought At</th>
+              <th>Current Price</th>
             </tr>
           </thead>
           <tbody>
@@ -41,13 +42,15 @@ const Portfolio = () => {
                 <td>{coin.symbol}</td>
                 <td>{coin.quantity}</td>
                 <td>{coin.boughtPrice}</td>
+                <td>{coin.latestPrice}</td>
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr>
-              <td>Total</td>
-              <td>{data.totalAmount}</td>
+              <td colSpan={2}>Total</td>
+              <td>{data.totalBoughtAmount}</td>
+              <td>{data.totalLatestAmount}</td>
             </tr>
           </tfoot>
         </table>

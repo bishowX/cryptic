@@ -18,7 +18,16 @@ export const portfolioReducer = (state, action) => {
     case LOAD_PORTFOLIO_SUCCESS:
       return {
         ...state,
-        portfolio: { loading: false, error: null, data: { ...state.portfolio.data, coins: action.payload.coins, totalAmount: action.payload.totalAmount } },
+        portfolio: {
+          loading: false,
+          error: null,
+          data: {
+            ...state.portfolio.data,
+            coins: action.payload.coins,
+            totalBoughtAmount: action.payload.totalBoughtAmount,
+            totalLatestAmount: action.payload.totalLatestAmount,
+          },
+        },
       };
 
     case LOAD_PORTFOLIO_ERROR:
