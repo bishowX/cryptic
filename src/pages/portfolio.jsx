@@ -1,6 +1,7 @@
 import { usePortfolio } from "context/PortfolioContext";
 import { useEffect } from "react";
 import { useAuth } from "context/AuthContext";
+import withAuth from "components/withAuth";
 
 const Portfolio = () => {
   const {
@@ -53,4 +54,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default withAuth(Portfolio);
