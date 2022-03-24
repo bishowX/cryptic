@@ -22,7 +22,7 @@ const Navbar = () => {
           <a>Portfolio</a>
         </Link>
       </div>
-      <button onClick={logout}>Logout</button>
+      {user && <button onClick={logout}>Logout</button>}
     </div>
   );
 };
