@@ -86,8 +86,8 @@ const CoinDetail = () => {
           )}
           {showLoginLink && (
             <p>
-              <Link>
-                <a>Login here</a>
+              <Link href="/login">
+                <a style={{ color: "blue" }}>Login here </a>
               </Link>
               to add to portfolio
             </p>
