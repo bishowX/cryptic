@@ -32,13 +32,15 @@ const Portfolio = () => {
             <tr>
               <th>Symbol</th>
               <th>Quantity</th>
+              <th>Bought At</th>
             </tr>
           </thead>
           <tbody>
             {data?.coins?.map((coin) => (
-              <tr>
+              <tr key={coin.symbol}>
                 <td>{coin.symbol}</td>
                 <td>{coin.quantity}</td>
+                <td>{coin.boughtPrice}</td>
               </tr>
             ))}
           </tbody>
