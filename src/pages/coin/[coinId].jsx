@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useCoin } from "context/CoinContext";
 import { usePortfolio } from "context/PortfolioContext";
 import { useAuth } from "context/AuthContext";
 
 const CoinDetail = () => {
+  const [showAddCoinToPortfolioForm, setShowAddCoinToPortfolioForm] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
   const {
     state: { coin },
     getCoinDetail,
@@ -29,9 +32,18 @@ const CoinDetail = () => {
     if (coinId) getCoinDetail(dispatchCoin, coinId);
   }, [coinId]);
 
-  const handleAddToPortfolio = () => {
+  const handleAddToPortfolio = (event) => {
+    event.preventDefault();
     if (!user) return;
-    addCoinToPortfolio(dispatchPortfolio, user.uid, coinId, 200);
+    addCoinToPortfolio(dispatchPortfolio, user.uid, coinId, quantity);
+  };
+
+  const toogleShowAddCoinToPortfolioForm = () => {
+    setShowAddCoinToPortfolioForm(!showAddCoinToPortfolioForm);
+  };
+
+  const handleQuantityChange = (event) => {
+    setQuantity(event.target.value);
   };
 
   return (
@@ -42,7 +54,15 @@ const CoinDetail = () => {
       {coin.data?.asset_id && (
         <div>
           <h2>{JSON.stringify(coin.data)}</h2>
-          <button onClick={handleAddToPortfolio}>Add to Portfolio</button>
+          {!showAddCoinToPortfolioForm && <button onClick={toogleShowAddCoinToPortfolioForm}>Add to Portfolio</button>}
+          {showAddCoinToPortfolioForm && (
+            <form onSubmit={handleAddToPortfolio}>
+              <label htmlFor="quantity">Quantity</label>
+              <input value={quantity} onChange={handleQuantityChange} type="number" name="quantity" id="quantity" />
+              <button type="submit">Add</button>
+              <button onClick={toogleShowAddCoinToPortfolioForm}>Cancel</button>
+            </form>
+          )}
         </div>
       )}
     </div>

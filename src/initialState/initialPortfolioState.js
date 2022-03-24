@@ -2,7 +2,10 @@ export const initialPortfolioState = {
   portfolio: {
     loading: true,
     error: null,
-    data: {},
+    data: {
+      coins: [],
+      totalAmount: 0,
+    },
   },
 
   addCoinToPortfolio: {
