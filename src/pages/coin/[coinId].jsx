@@ -32,6 +32,12 @@ const CoinDetail = () => {
     if (coinId) getCoinDetail(dispatchCoin, coinId);
   }, [coinId]);
 
+  useEffect(() => {
+    if (addCoinToPortfolioState.loading) {
+      setShowAddCoinToPortfolioForm(true);
+    } else setShowAddCoinToPortfolioForm(false);
+  }, [addCoinToPortfolioState.loading]);
+
   const handleAddToPortfolio = (event) => {
     event.preventDefault();
     if (!user) return;
@@ -58,9 +64,13 @@ const CoinDetail = () => {
           {showAddCoinToPortfolioForm && (
             <form onSubmit={handleAddToPortfolio}>
               <label htmlFor="quantity">Quantity</label>
-              <input value={quantity} onChange={handleQuantityChange} type="number" name="quantity" id="quantity" />
-              <button type="submit">Add</button>
-              <button onClick={toogleShowAddCoinToPortfolioForm}>Cancel</button>
+              <input disabled={addCoinToPortfolioState.loading} value={quantity} onChange={handleQuantityChange} type="number" name="quantity" id="quantity" />
+              <button disabled={addCoinToPortfolioState.loading} type="submit">
+                Add
+              </button>
+              <button disabled={addCoinToPortfolioState.loading} onClick={toogleShowAddCoinToPortfolioForm}>
+                Cancel
+              </button>
             </form>
           )}
         </div>

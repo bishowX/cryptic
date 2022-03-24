@@ -8,6 +8,7 @@ import {
   ADD_COIN_TO_PORTFOLIO_LOADING,
 } from "actionTypes";
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { API_BASE_URL, API_OPTIONS } from "constants";
 
 export const getPortfolio = async (dispatch, uid) => {
   // get portfoilo from firebase db
@@ -27,6 +28,12 @@ export const getPortfolio = async (dispatch, uid) => {
   }
 };
 
+const getCoinPrice = async (coinId) => {
+  const response = await fetch(`${API_BASE_URL}/v1/assets/${coinId}`, API_OPTIONS);
+  const result = await response.json();
+  return result[0].price_usd;
+};
+
 export const addCoinToPortfolio = async (dispatch, uid, coinId, quantity) => {
   dispatch({ type: ADD_COIN_TO_PORTFOLIO_LOADING });
   try {
@@ -39,10 +46,12 @@ export const addCoinToPortfolio = async (dispatch, uid, coinId, quantity) => {
       coinDoc = result;
     });
 
+    //get latest coin price
+    const coinPrice = await getCoinPrice(coinId);
     if (coinDoc) {
-      await updateDoc(doc(firestore, `${uid}/portfolio/coins/${coinDoc.id}`), { symbol: coinId, quantity });
+      await updateDoc(doc(firestore, `${uid}/portfolio/coins/${coinDoc.id}`), { symbol: coinId, quantity, boughtPrice: coinPrice });
     } else {
-      await addDoc(collection(firestore, `${uid}/portfolio/coins`), { symbol: coinId, quantity });
+      await addDoc(collection(firestore, `${uid}/portfolio/coins`), { symbol: coinId, quantity, boughtPrice: coinPrice });
     }
 
     dispatch({ type: ADD_COIN_TO_PORTFOLIO_SUCCESS, payload: { symbol: coinId, quantity } });
