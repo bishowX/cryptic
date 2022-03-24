@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import CoinTable from "components/CoinTable";
 import { useCoin } from "context/CoinContext";
-import { useEffect } from "react";
 
 const Market = () => {
   const {
