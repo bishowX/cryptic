@@ -23,7 +23,7 @@ const Dashboard = () => {
   return (
     <div>
       {error && <h1>Error: {error}</h1>}
-      <h1>Your total portfolio amount: {loading ? "loading..." : data?.totalAmount}</h1>
+      <h1>Your total portfolio amount: {loading ? "loading..." : data?.totalBoughtAmount}</h1>
     </div>
   );
 };
